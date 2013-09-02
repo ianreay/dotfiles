@@ -95,6 +95,8 @@ inoremap <C-p> <esc>"+gP
 noremap <C-t> <esc>:tabnew<CR>
 let g:ctrlp_map = '<c-o>'
 
+let g:vimwiki_list = [{'path': '~\\Dropbox\\vimwiki\\'}]
+
 " Force yourself to stop using arrow keys
 noremap <up> <nop>
 noremap <down> <nop>
