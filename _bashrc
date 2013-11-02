@@ -1,0 +1,29 @@
+
+# some aliases to search through the source tree (or any directory structure)
+# find in text files
+alias fit='/usr/bin/find . -name .svn -prune , "(" -iname "*.txt" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in h/hpp files
+alias fic='/usr/bin/find . -name .svn -prune , "(" -iname "*.cpp" -o -iname "*.c" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in h/hpp files
+alias fih='/usr/bin/find . -name .svn -prune , "(" -iname "*.hpp" -o -iname "*.h" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in cpp/hpp files
+alias fich='/usr/bin/find . -name .svn -prune , "(" -iname "*.[ch]pp" -o -iname "*.[ch]" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in all files
+alias fia='/usr/bin/find . -name .svn -prune , "(" -type f -name "*" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in make-ish files files
+alias fim='/usr/bin/find . -name .svn -prune , "(" -iname "*make*" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in jam files
+alias fij='/usr/bin/find . -name .svn -prune , "(" -name "Jamfile" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in python files
+alias fip='/usr/bin/find . -name .svn -prune , "(" -iname "*.py" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+# find in restructured text files
+alias fir='/usr/bin/find . -name .svn -prune , "(" -iname "*.rst" ")" -a "(" -type f -o -type l ")" -a -print0 | xargs -0r egrep -n'
+
+# directory changing shortcuts
+alias cx="cd .."
+alias cxx="cd ../.."
+alias cxxx="cd ../../.."
+alias cxxxx="cd ../../../.."
+alias cxxxxx="cd ../../../../.."
+alias cxxxxxx="cd ../../../../../.."
+
