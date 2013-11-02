@@ -27,3 +27,4 @@ alias cxxxx="cd ../../../.."
 alias cxxxxx="cd ../../../../.."
 alias cxxxxxx="cd ../../../../../.."
 
+alias gitp="git push -u origin master"
