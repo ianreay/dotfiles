@@ -16,6 +16,7 @@ Bundle 'klen/python-mode'
 Bundle 'sukima/xmledit'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-fugitive'
 Bundle 'vimwiki'
 Bundle 'vim-scripts/sessionman.vim'
 Bundle "SirVer/ultisnips" 
