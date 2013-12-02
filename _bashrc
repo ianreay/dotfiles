@@ -1,3 +1,4 @@
+export PS1="[\u@\h][\w]\$"
 
 # some aliases to search through the source tree (or any directory structure)
 # find in text files
