@@ -32,3 +32,5 @@ alias work='ssh -v -L 3390:ianr-ws:3389 ianr@vpn.hitachi-id.com'
 
 alias gitp='git push -u origin master'
 alias gitc='git commit -a -m'
+alias python='python3'
+alias easy_install='easy_install-3.3'
