@@ -1,6 +1,11 @@
 :set nocompatible
 :filetype off
+
+" Unix 
+:set rtp+=~/.vim/bundle/vundle/
+" Windows
 :set rtp+=c:/users/ianr/vimfiles/bundle/vundle/
+
 :call vundle#rc()
 
 " let Vundle manage Vundle

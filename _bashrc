@@ -28,3 +28,6 @@ alias cxxxxx="cd ../../../../.."
 alias cxxxxxx="cd ../../../../../.."
 
 alias gitp="git push -u origin master"
+alias work='ssh -v -L 3390:ianr-ws:3389 ianr@vpn.hitachi-id.com'
+
+alias gitp='git push -u origin master'

@@ -1,3 +1,5 @@
+:so ~/unix.vim
+" :so ~/windows.vim
 :so ~/bundles.vim
 :so ~/cscope.vim
 let pymode_folding=0
@@ -23,7 +25,9 @@ set relativenumber
 let g:tex_flavor = 'latex'
   
 " use jk as a replacement for the esc key
-inoremap jk <Esc> 
+" Disable this since I use vim keyboard bindings in many other apps and they
+" rarely are configurable enough to make this work.
+" inoremap jk <Esc> 
 " wrap long lines
 set wrap      
 " auto load files that are changing
@@ -80,10 +84,10 @@ nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
 nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
 
 " Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-l> <c-w>l
 
 " Ctrl + S shortcut to save file
 noremap <C-s> <esc>:w<CR>
@@ -95,7 +99,6 @@ inoremap <C-p> <esc>"+gP
 noremap <C-t> <esc>:tabnew<CR>
 let g:ctrlp_map = '<c-o>'
 
-let g:vimwiki_list = [{'path': '~\\Dropbox\\vimwiki\\'}]
 
 " Force yourself to stop using arrow keys
 noremap <up> <nop>
@@ -142,6 +145,9 @@ noremap <Leader>n :call RenameFile()<cr>
 
 " Quick reference for enabling and disabling spelling
 noremap <F1> :setlocal spell! spelllang=en_us<CR>
+" Always enable spelling by default. In some files it can be a little annoying
+" but its always easy to turn off if it is.
+set spell spelllang=en_us
 
 syntax on
 filetype indent plugin on
