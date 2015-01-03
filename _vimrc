@@ -169,19 +169,19 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 nnoremap <silent> [unite]f :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
 " nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-nnoremap <silent>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <silent>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <silent>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
-nnoremap <silent>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+nnoremap <silent> [unite]r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+nnoremap <silent> [unite]o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+nnoremap <silent> [unite]y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <silent> [unite]e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 " Quickly switch lcd
-nnoremap <silent>d :<C-u>Unite -buffer-name=change-cwd -default-action=cd directory_mru directory_rec/async<CR>
+nnoremap <silent> [unite]d :<C-u>Unite -buffer-name=change-cwd -default-action=cd directory_mru directory_rec/async<CR>
 
 " Ctrl-p file search replacement
 nnoremap <C-p> :Unite -start-insert file_rec/async<cr>
 " Content searching
-nnoremap <space>/ :Unite grep:.<cr>
+nnoremap <silent> [unite]/ :Unite grep:.<cr>
 " Quick buffer searching
-nnoremap <space>s :<C-u>Unite -start-insert buffer<cr>
+nnoremap <silent> [unite]s :<C-u>Unite -start-insert buffer<cr>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
