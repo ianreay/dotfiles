@@ -1,70 +1,248 @@
-:so ~/unix.vim
-" :so ~/windows.vim
 :so ~/bundles.vim
-:so ~/cscope.vim
-let pymode_folding=0
+if has("win32") || has("win16")
+  :so ~/grep.vim
+endif
+" " IANR: go hardcore with your vim and use it the right way
+" " :so ~/neocomplete.vim
+
 
 filetype indent on
 
-" Since I always mistype w as W when I try to save files
-command W w
-
-" enable ctrlp directory caching. This can reduce load times significantly.
-let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 0
-
-" disable the swap file. The warnings get anoying and sometimes
-" they get committed
-set noswapfile  
-
-" Use relative numbering. This makes movements more accurate
-set relativenumber
-
-" Starting with Vim 7, the filetype of empty .tex files defaults to 'plaintex'
-" instead of 'tex'. The following changes the default filetype back to 'tex'
-let g:tex_flavor = 'latex'
-  
-" use jk as a replacement for the esc key
-" Disable this since I use vim keyboard bindings in many other apps and they
-" rarely are configurable enough to make this work.
-" inoremap jk <Esc> 
-" wrap long lines
-set wrap      
-" auto load files that are changing
-set autoread  
-
-"Set whitespace details
-set tabstop=2
-set shiftwidth=2
-set expandtab
+set nofoldenable " disable folding
 
 " higlight all search results by default 
 set hlsearch
 set incsearch
 set showmatch
+
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
+
 " highlight current line
 set cursorline
 set cmdheight=1
+
 " Ensure that at least 2 lines below the current cursor are displayed for
 " context
 set scrolloff=3
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+
 " display incomplete commands
 set showcmd
  
 set wildmenu
 set wildmode=list:longest
 
+" Various grep helpers for finding data in files.
+command! -nargs=1 Fia :Ygrep <q-args> *
+command! -nargs=1 Firb :Ygrep <q-args> *.rb
+command! -nargs=1 Fic :Ygrep <q-args> *.cpp
+command! -nargs=1 Fih :Ygrep <q-args> *.cpp
+command! -nargs=1 Fijam :Ygrep <q-args> Jamfile
+command! -nargs=1 Fixslt :Ygrep <q-args> *.xslt
+command! -nargs=1 Fixml :Ygrep <q-args> *.xml
+noremap fia :Ygrep <cword> *<CR>
+noremap firb :Ygrep <cword> *.rb<CR>
+noremap fic :Ygrep <cword> *.cpp<CR>
+noremap fih :Ygrep <cword> *.hpp<CR>
+noremap fixslt :Ygrep <cword> *.xslt<CR>
+noremap fixml :Ygrep <cword> *.xml<CR>
+
+nnoremap re :%s/\\begin{edit}\(\_.\{-}\)\\end{edit}/\1/gc
+
+" Ctrl + S shortcut to save file
+noremap <C-s> <esc>:w<CR>
+inoremap <C-s> <esc>:w<CR>
+
+" Ctrl + o shortcut to paste from system buffer
+" since Ctrl + p is used by the ctrlp plugin
+" noremap <C-p> <esc>"+gP
+" inoremap <C-p> <esc>"+gP
+"" Copy/Paste/Cut
+noremap YY "+y<CR>
+noremap P "+gP<CR>
+noremap XX "+x<CR>
+
+
+" Open .vimrc for quick-edit.
+noremap <Leader>ev :edit $MYVIMRC<CR>
+noremap <Leader>v :source $MYVIMRC<CR>
+noremap <leader>b :edit ~/bundles.vim<CR>
+
+" Quick session access
+noremap <Leader>sl :SessionList<CR>
+noremap <Leader>sa :SessionSaveAs 
+ 
+" Quick formatting of text
+noremap <Leader>fp gqap
+noremap <Leader>fl gq<space>
+
+
+" Quick reference for enabling and disabling spelling
+noremap <F1> :setlocal spell! spelllang=en_us<CR>
+setlocal spell spelllang=en_us
+
+syntax on
+filetype indent plugin on
+set autoindent
+
+set showcmd
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Ruby
+""""""""""""""""""""""""""""""""""""""""""""
+
+" IANR: fix for very slow ruby intialization times
+" http://stackoverflow.com/questions/16902317/vim-slow-with-ruby-syntax-highlighting
+if has("win32") || has("win16")
+	set re=1
+endif
+
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Latex
+""""""""""""""""""""""""""""""""""""""""""""
+" Starting with Vim 7, the filetype of empty .tex files defaults to 'plaintex'
+" instead of 'tex'. The following changes the default filetype back to 'tex'
+if has("win32") || has("win16")
+  let g:tex_flavor = 'latex'
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Python
+""""""""""""""""""""""""""""""""""""""""""""
+
+" Disabling the following python lint warnings:
+" 501 - line to long. Complex code leads leads to lots of info. You can either
+" have long lines that describe your problem or pages of code that is broken
+" up in odd ways to try and pass the rule. Use human judgement about what
+" works best.
+" C901 - Sure complex functions are a smell, but arbitrarily saying "thow
+" shalt not make long functions and instead contort your code in unnatural
+" ways" is kind of throwing the baby out with the bath water. Use human
+" judgement.
+" E201 - I don't care about whitespace around brackets
+" E202 - I don't care about whitepsace around brackets
+" E231 - I don't care about whitespace after ,
+" let g:pymode_lint_ignore="E501,C901,E201,E202,E231"
+let g:pymode_lint_checker = "pyflakes,pep8"
+
+autocmd FileType python setlocal tabstop=4 
+autocmd FileType python setlocal softtabstop=4 
+autocmd FileType python setlocal shiftwidth=4 
+autocmd FileType python setlocal textwidth=80 
+autocmd FileType python setlocal smarttab 
+autocmd FileType python setlocal expandtab
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Vimfiler
+""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>b :VimFiler<cr>
+let g:vimfiler_as_default_explorer = 1
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Unite
+""""""""""""""""""""""""""""""""""""""""""""
+
+"Map space to the prefix for Unite
+nnoremap [unite] <Nop>
+nmap <space> [unite]
+
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_session_enable_auto_save = 1
+let g:unite_enable_start_insert = 1
+if has("win32")
+  let g:unite_data_directory = "~\\.unite\\"
+else
+  let g:unite_data_directory =  "~/.unite/"
+endif
+let g:unite_source_file_mru_limit = 1000
+
+" Always use fuzzy matching
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+nnoremap <silent> [unite]f :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+nnoremap <silent>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+nnoremap <silent>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+nnoremap <silent>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <silent>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+" Quickly switch lcd
+nnoremap <silent>d :<C-u>Unite -buffer-name=change-cwd -default-action=cd directory_mru directory_rec/async<CR>
+
+" Ctrl-p file search replacement
+nnoremap <C-p> :Unite -start-insert file_rec/async<cr>
+" Content searching
+nnoremap <space>/ :Unite grep:.<cr>
+" Quick buffer searching
+nnoremap <space>s :<C-u>Unite -start-insert buffer<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""
+" VimShell
+""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>vs :VimShell<cr> 
+let g:vimshell_disable_escape_highlight=1
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Ctrl-P
+""""""""""""""""""""""""""""""""""""""""""""
+" enable ctrlp directory caching. This can reduce load times significantly.
+" let g:ctrlp_use_caching = 1
+" let g:ctrlp_clear_cache_on_exit = 0
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-:hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+if has("win32")
+  :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+  :hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+endif
 
+""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree 
+""""""""""""""""""""""""""""""""""""""""""""
+" Toggle NERDTree
+noremap <Leader>l :NERDTreeToggle<CR>
+" Open NERDTree
+noremap <Leader>L :NERDTree<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" UltiSnips 
+""""""""""""""""""""""""""""""""""""""""""""
+" Open my ultisnips for the file type in question
+noremap <Leader>us <esc>:UltiSnipsEdit<CR>
+
+" let g:UltiSnipsExpandTrigger = '<c-j>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger= '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger= '<c-k>'
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Tagbar
+""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <F4> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""
 " By Tim Pope
+""""""""""""""""""""""""""""""""""""""""""""
 function! OpenURL(url)
   if has("win32")
     exe "!start cmd /cstart /b ".a:url.""
@@ -76,58 +254,11 @@ function! OpenURL(url)
   redraw!
 endfunction
 command! -nargs=1 OpenURL :call OpenURL(<q-args>)
-
 " mapping to open URL under cursor
-nnoremap gb :OpenURL <cfile><CR>
+nnoremap gU :OpenURL <cfile><CR>
 nnoremap gA :OpenURL http://www.answers.com/<cword><CR>
 nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
 nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
-
-" Move around splits with <c-hjkl>
-" nnoremap <c-j> <c-w>j
-" nnoremap <c-k> <c-w>k
-" nnoremap <c-h> <c-w>h
-" nnoremap <c-l> <c-w>l
-
-" Ctrl + S shortcut to save file
-noremap <C-s> <esc>:w<CR>
-inoremap <C-s> <esc>:w<CR>
-" Ctrl + o shortcut to paste from system buffer
-" since Ctrl + p is used by the ctrlp plugin
-noremap <C-p> <esc>"+gP
-inoremap <C-p> <esc>"+gP
-noremap <C-t> <esc>:tabnew<CR>
-let g:ctrlp_map = '<c-o>'
-
-
-" Force yourself to stop using arrow keys
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-
-" Toggle NERDTree
-noremap <Leader>l :NERDTreeToggle<CR>
-" Open NERDTree
-noremap <Leader>L :NERDTree<CR>
-
-" Open my ultisnips for the file type in question
-noremap <Leader>us <esc>:UltiSnipsEdit<CR>
-
-" Open .vimrc for quick-edit.
-noremap <Leader>ev :edit $MYVIMRC<CR>
-noremap <Leader>v :source $MYVIMRC<CR>
-
-" Quick session access
-noremap <Leader>sl :SessionList<CR>
-noremap <Leader>sa :SessionSaveAs 
- 
-" Quick formatting of text
-noremap <Leader>fp gqap
-noremap <Leader>fl gq<space>
-
-" Quickly make html docs
-noremap <Leader>mh :!make html<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE (thanks Gary Bernhardt)
@@ -143,14 +274,215 @@ function! RenameFile()
 endfunction
 noremap <Leader>n :call RenameFile()<cr>
 
-" Quick reference for enabling and disabling spelling
-noremap <F1> :setlocal spell! spelllang=en_us<CR>
-" Always enable spelling by default. In some files it can be a little annoying
-" but its always easy to turn off if it is.
-set spell spelllang=en_us
+""""""""""""""""""""""""""""""""""""""""""""
+" Grep
+""""""""""""""""""""""""""""""""""""""""""""
+if has("win32") || has("win16")
+  let Grep_Path = 'C:\cygwin\bin\grep.exe'
+  let Fgrep_Path = 'C:\cygwin\bin\fgrep.exe'
+  let Egrep_Path = 'C:\cygwin\bin\egrep.exe'
+  let Agrep_Path = 'C:\cygwin\bin\agrep.exe'
+  let Grep_Find_Path = 'C:\cygwin\bin\find.exe'
+  let Grep_Xargs_Path = 'C:\cygwin\bin\xargs.exe'
+  let Grep_Cygwin_Find = 1
+  let Grep_Shell_Quote_Char = "\""
+endif
 
-syntax on
-filetype indent plugin on
-set autoindent
+""""""""""""""""""""""""""""""""""""""""""""
+" IANR's personal preferences
+""""""""""""""""""""""""""""""""""""""""""""
+" Since I always mistype w as W when I try to save files
+command! W w
 
-set showcmd
+" disable the swap file. The warnings get anoying and sometimes
+" they get committed
+set noswapfile  
+
+" wrap long lines
+set wrap      
+
+" " auto load files that are changing
+set autoread  
+
+"Set whitespace details
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+if has("win32") || has("win16")
+  let g:vimwiki_list = [{'path': '~\\Dropbox\\vimwiki\\'}]
+else
+  let g:vimwiki_list = [{'path': '/Users/ianreay/Dropbox/vimwiki'}]
+endif
+
+" Quickly make html docs
+noremap <Leader>mh :!make html<CR>
+
+" Common file locations
+nnoremap <Leader>tucas :lcd C:\w\internal\trunk\tucas<CR>
+nnoremap <Leader>gem :lcd C:\w\internal\trunk\tucas-gem<CR>
+nnoremap <Leader>fox :lcd C:\w\fox\trunk<CR>
+nnoremap <Leader>82 :lcd C:\w\8.2<CR>
+nnoremap <Leader>pam :lcd C:\inetpub\wwwroot\mockups\pam<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Hitachi locations
+""""""""""""""""""""""""""""""""""""""""""""
+
+command! -nargs=1 Fisp :vimgrep /<q-args>/ common\dbaccess\*.xml
+command! -nargs=1 Fis :vimgrep /table name=<q-args>/ common\dbaccess\schema.xml
+command! -nargs=1 Fiapi :vimgrep /\cfunction name=<q-args>/ common\idapi\apifunctions.xml
+command! -nargs=1 Fil :vimgrep <q-args> ui\src\common\*.kvg
+command! -nargs=1 Fim4 :vimgrep <q-args> ui\src\common\*.m4
+
+nnoremap gT :OpenURL https://bambam.hitachi-id.com/cgi-bin/tp.pl?ticket=<cfile><CR>
+
+" Access quick files
+noremap <leader>schema :edit common\dbaccess\schema.xml<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Hardcore 
+""""""""""""""""""""""""""""""""""""""""""""
+
+" Force yourself to stop using arrow keys
+" noremap <up> <nop>
+" noremap <down> <nop>
+" noremap <left> <nop>
+" noremap <right> <nop>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Gtags 
+""""""""""""""""""""""""""""""""""""""""""""
+
+" search mappings
+nnoremap <Leader>gs :Gtags -ge <CR>
+" Goto defintion 
+nnoremap <Leader>gt :Gtags <CR>
+" Goto reference 
+nnoremap <Leader>gr :Gtags -r <CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" SVN 
+""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <Leader>svnd :VCSDiff<CR>
+nnoremap <Leader>svnb :VCSBlame<CR>
+nnoremap <Leader>svna :VCSAdd<CR>
+nnoremap <Leader>svnu :VCSUpdate<CR>
+nnoremap <Leader>svnc :VCSCommit<CR>
+nnoremap <Leader>svnl :VCSLog --limit 50<CR>
+nnoremap <Leader>svnh :h vcscommand<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" GIT 
+""""""""""""""""""""""""""""""""""""""""""""
+
+noremap <Leader>ga :!git add .<CR>
+noremap <Leader>gc :!git commit -m '<C-R>="'"<CR>
+noremap <Leader>gsh :!git push<CR>
+noremap <Leader>gs :Gstatus<CR>
+noremap <Leader>gb :Gblame<CR>
+noremap <Leader>gd :Gvdiff<CR>
+noremap <Leader>gr :Gremove<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Patch 
+""""""""""""""""""""""""""""""""""""""""""""
+if has("win32") || has("win16")
+  let g:patchreview_patch = 'c:\\cygwin\\bin\\patch.exe'
+  let g:patchreview_patch_needs_crlf = 1
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Neocomplete 
+""""""""""""""""""""""""""""""""""""""""""""
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+" let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+" let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+" let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+" let g:neocomplcache_min_syntax_length = 3
+" let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Enable heavy features.
+" Use camel case completion.
+"let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+"let g:neocomplcache_enable_underbar_completion = 1
+
+" Define dictionary.
+" let g:neocomplcache_dictionary_filetype_lists = {
+    " \ 'default' : '',
+    " \ 'vimshell' : $HOME.'/.vimshell_hist',
+    " \ 'scheme' : $HOME.'/.gosh_completions'
+        " \ }
+
+" Define keyword.
+" if !exists('g:neocomplcache_keyword_patterns')
+    " let g:neocomplcache_keyword_patterns = {}
+" endif
+" let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+" 
+" Plugin key-mappings.
+" inoremap <expr><C-g>     neocomplcache#undo_completion()
+" inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+  " return neocomplcache#smart_close_popup() . "\<CR>"
+  " " For no inserting <CR> key.
+  " "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+" endfunction
+" " <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" " <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-y>  neocomplcache#close_popup()
+" inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplcache_enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplcache_enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+" if !exists('g:neocomplcache_force_omni_patterns')
+  " let g:neocomplcache_force_omni_patterns = {}
+" endif
+" let g:neocomplcache_force_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+" let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+" let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+" let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'

@@ -1,8 +1,10 @@
+" IANR: the goal is to keep vim usable for end users
+"
 " Remove menu bar
-set guioptions-=m
+" set guioptions-=m
 
 " Remove toolbar
-set guioptions-=T
+" set guioptions-=T
 
 "remove right-hand scroll bar
-:set guioptions-=r  
+" :set guioptions-=r  
