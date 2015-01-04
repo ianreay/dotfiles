@@ -75,6 +75,7 @@ Bundle 'Shougo/neocomplete.vim'
 " Bundle 'Shougo/neosnippet.vim'
 " Bundle 'Shougo/neosnippet-snippets'
 " " ultisnips is being used instead
+Bundle 'hewes/unite-gtags'
 
 " Bundle 'Valloric/YouCompleteMe'
 " disable youcompleteme in favor of neocomplete for cross platform support

@@ -244,6 +244,7 @@ noremap <Leader>L :NERDTree<CR>
 """"""""""""""""""""""""""""""""""""""""""""
 nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
+" let g:tagbar_ctags_bin = 'global'
 
 
 """"""""""""""""""""""""""""""""""""""""""""
@@ -384,13 +385,13 @@ nnoremap <Leader>svnh :h vcscommand<CR>
 " GIT 
 """"""""""""""""""""""""""""""""""""""""""""
 
-noremap <Leader>ga :!git add .<CR>
-noremap <Leader>gc :!git commit -m '<C-R>="'"<CR>
-noremap <Leader>gsh :!git push<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
+" noremap <Leader>ga :!git add .<CR>
+" noremap <Leader>gc :!git commit -m '<C-R>="'"<CR>
+" noremap <Leader>gsh :!git push<CR>
+" noremap <Leader>gs :Gstatus<CR>
+" noremap <Leader>gb :Gblame<CR>
+" noremap <Leader>gd :Gvdiff<CR>
+" noremap <Leader>gr :Gremove<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""
 " Patch 
@@ -406,49 +407,55 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
  
- "" Disable AutoComplPop.
- let g:acp_enableAtStartup = 0
- " Use neocomplete.
- let g:neocomplete#enable_at_startup = 1
- " Use smartcase.
- let g:neocomplete#enable_smart_case = 1
- " Set minimum syntax keyword length.
- let g:neocomplete#sources#syntax#min_keyword_length = 2
- let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#tags#cache_limit_size = 5000000
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
- " Define dictionary.
- let g:neocomplete#sources#dictionary#dictionaries = {
-   \ 'default' : '',
-   \ 'vimshell' : $HOME.'/.vimshell_hist',
-   \ 'scheme' : $HOME.'/.gosh_completions'
-   \ }
+" let g:neocomplete#ctags_command = "global"
+" let g:neocomplete#ctags_arguments = "_"
 
- " Define keyword.
- if !exists('g:neocomplete#keyword_patterns')
-   let g:neocomplete#keyword_patterns = {}
- endif
- let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+  \ 'default' : '',
+  \ 'vimshell' : $HOME.'/.vimshell_hist',
+  \ 'scheme' : $HOME.'/.gosh_completions'
+  \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
  
  
- " Enable omni completion.
- autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
- autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
- autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
- autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
- autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
- autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
  
- " Enable heavy omni completion.
- if !exists('g:neocomplete#sources#omni#input_patterns')
-   let g:neocomplete#sources#omni#input_patterns = {}
- endif
- "let g:neocomplete#sources#omni#input_patterns.php = '[^.\t]->\h\w*\|\h\w*::'
- "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:]*\t]\%(\.\|->\)'
- "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:]*\t]\%(\.\|->\)\|\h\w*::'
- 
- " For perlomni.vim setting.
- " https://github.com/c9s/perlomni.vim
- let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+ let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^.\t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:]*\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:]*\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+noremap <Leader>tc <esc>:NeoCompleteTagMakeCache<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""
 " Neosnippet
