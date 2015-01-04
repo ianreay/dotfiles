@@ -10,20 +10,19 @@
 
 " let Vundle manage Vundle
  " required! 
+Bundle 'gmarik/vundle'
+Bundle 'Raimondi/delimitMate'
+Bundle 'tommcdo/vim-exchange'
 Bundle 'nelstrom/gundo.vim'
 Bundle 'dsawardekar/portkey'
-Bundle 'gmarik/vundle'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/syntastic'
 Bundle 'klen/python-mode'
 Bundle 'sukima/xmledit'
-" Bundle 'scrooloose/nerdtree'
 Bundle 'vimwiki'
 Bundle 'vim-scripts/sessionman.vim'
 Bundle "SirVer/ultisnips" 
-" Trying to use unite rather than ctrl p
-" Bundle 'kien/ctrlp.vim'
 Bundle 'PProvost/vim-ps1'
 Bundle 'vim-scripts/gtags.vim'
 Bundle 'vim-scripts/OmniCppComplete'
@@ -35,22 +34,24 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+" Make multiple commands that are reapeatable
+" http://vimcasts.org/episodes/creating-repeatable-mappings-with-repeat-vim/
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-unimpaired'
+" common mappings from tpope
 Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-haml'
+" Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'bling/vim-airline'
 Bundle 'sheerun/vim-polyglot'
 Bundle 'vim-scripts/grep.vim'
+Bundle 'godlygeek/tabular'
 " grep.vim replaced with custom grep file
-" Bundle 'honza/vim-snippets'
-"   Disabled since it conflicts with other snippet items.
+Bundle 'honza/vim-snippets'
 
 " Bundle 'vim-scripts/c.vim'
 "   Creates conflicts with ulti snippets
@@ -70,9 +71,13 @@ Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/neossh.vim'
 Bundle 'Shougo/vimfiler.vim'
 Bundle 'Shougo/vinarise.vim'
-" Binary hex editing
+Bundle 'Shougo/neocomplete.vim'
+" Bundle 'Shougo/neosnippet.vim'
+" Bundle 'Shougo/neosnippet-snippets'
+" " ultisnips is being used instead
 
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
+" disable youcompleteme in favor of neocomplete for cross platform support
 
 Bundle 'junkblocker/patchreview-vim'
 
