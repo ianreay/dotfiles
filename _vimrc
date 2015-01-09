@@ -117,6 +117,8 @@ endif
 " Python
 """"""""""""""""""""""""""""""""""""""""""""
 
+let g:pymode = 1
+
 " Disabling the following python lint warnings:
 " 501 - line to long. Complex code leads leads to lots of info. You can either
 " have long lines that describe your problem or pages of code that is broken
@@ -130,6 +132,7 @@ endif
 " E202 - I don't care about whitepsace around brackets
 " E231 - I don't care about whitespace after ,
 " let g:pymode_lint_ignore="E501,C901,E201,E202,E231"
+
 let g:pymode_lint_checker = "pyflakes,pep8"
 
 autocmd FileType python setlocal tabstop=4 
@@ -174,7 +177,7 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <silent> [unite]f :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
 " nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 nnoremap <silent> [unite]r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <silent> [unite]o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+" nnoremap <silent> [unite]o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
 nnoremap <silent> [unite]y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
 nnoremap <silent> [unite]e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 " Quickly switch lcd
@@ -505,3 +508,27 @@ endfunction
 
 inoremap <silent> <F12> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 nnoremap <silent> <F12> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Syntastic 
+""""""""""""""""""""""""""""""""""""""""""""
+
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 1
+
+" Python 
+" let g:pymode_lint_write = 0
+" let g:syntastic_mode_map = {
+"     \ "mode": "active",
+"     \ "active_filetypes": ["ruby", "cpp", "c", "xml"],
+"     \ "passive_filetypes": ["python"] }
+
+let g:syntastic_ignore_files = ['\.py$']
+
+" Checkers 
+let g:syntastic_cpp_checkers = ['cppcheck']
+let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'rubylint']
+let g:syntastic_xml_checkers = ['xmllint']
+" let g:syntastic_python_checkers = ['pylint', 'pep8', 'python']
+" let g:syntastic_python_checkers = ['pylint']
