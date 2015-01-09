@@ -117,7 +117,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 " Python
 """"""""""""""""""""""""""""""""""""""""""""
 
-let g:pymode = 1
+" let g:pymode = 1
 
 " Disabling the following python lint warnings:
 " 501 - line to long. Complex code leads leads to lots of info. You can either
@@ -516,6 +516,7 @@ nnoremap <silent> <F12> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnips
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 
 " Python 
 " let g:pymode_lint_write = 0
@@ -532,3 +533,11 @@ let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'rubylint']
 let g:syntastic_xml_checkers = ['xmllint']
 " let g:syntastic_python_checkers = ['pylint', 'pep8', 'python']
 " let g:syntastic_python_checkers = ['pylint']
+
+"Paths to the various checkers
+if has("win32") || has("win16")
+  let g:syntastic_cpp_cppcheck_exec = 'C:/pslibs/extlib/tools/cppcheck/1.67/cppcheck.exe'
+endif
+
+" arguments for checkers
+let g:syntastic_cpp_cppcheck_args = "--inline-suppr --error-exitcode=1 --quiet --suppressions-list=Jambuild/cppcheck-suppression-list.txt"
