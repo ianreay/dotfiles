@@ -51,7 +51,7 @@ Bundle 'sheerun/vim-polyglot'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'godlygeek/tabular'
 " grep.vim replaced with custom grep file
-Bundle 'honza/vim-snippets'
+" Bundle 'honza/vim-snippets'
 
 " Bundle 'vim-scripts/c.vim'
 "   Creates conflicts with ulti snippets

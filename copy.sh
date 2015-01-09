@@ -1,6 +1,6 @@
-cp _bashrc ~/.bashrc
 cp _vimrc ~/.vimrc
+cp _gvimrc ~/.gvimrc
 cp bundles.vim ~/bundles.vim
 
-cp _gvimrc ~/.gvimrc
+cp _bashrc ~/.bashrc
 source ~/.bashrc

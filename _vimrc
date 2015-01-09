@@ -109,9 +109,9 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 """"""""""""""""""""""""""""""""""""""""""""
 " Starting with Vim 7, the filetype of empty .tex files defaults to 'plaintex'
 " instead of 'tex'. The following changes the default filetype back to 'tex'
-if has("win32") || has("win16")
-  let g:tex_flavor = 'latex'
-endif
+" if has("win32") || has("win16")
+  " let g:tex_flavor = 'latex'
+" endif
 
 """"""""""""""""""""""""""""""""""""""""""""
 " Python
