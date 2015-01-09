@@ -34,7 +34,7 @@ set showcmd
 set wildmenu
 set wildmode=list:longest
 
-" Various grep helpers for finding data in files.
+" Various grep helpers for tefinding data in files.
 command! -nargs=1 Fia :Ygrep <q-args> *
 command! -nargs=1 Firb :Ygrep <q-args> *.rb
 command! -nargs=1 Fic :Ygrep <q-args> *.cpp
@@ -151,7 +151,7 @@ let g:vimfiler_as_default_explorer = 1
 """"""""""""""""""""""""""""""""""""""""""""
 " Gundo
 """"""""""""""""""""""""""""""""""""""""""""
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F6> :GundoToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""
 " Unite
@@ -170,6 +170,11 @@ else
   let g:unite_data_directory =  "~/.unite/"
 endif
 let g:unite_source_file_mru_limit = 1000
+
+if has("win32")
+  let g:unite_source_find_command = "C:\\cygwin\\bin\\find.exe"	
+  let g:unite_source_rec_async_command = "C:\\cygwin\\bin\\find.exe"	
+endif
 
 " Always use fuzzy matching
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -222,8 +227,9 @@ let g:vimshell_disable_escape_highlight=1
 " Ctrl-P
 """"""""""""""""""""""""""""""""""""""""""""
 " enable ctrlp directory caching. This can reduce load times significantly.
-" let g:ctrlp_use_caching = 1
-" let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
+" F5 to reload cache
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE

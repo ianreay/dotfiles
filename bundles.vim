@@ -10,6 +10,7 @@
 
 " let Vundle manage Vundle
  " required! 
+Bundle 'kein/ctrlp.vim'
 Bundle 'gmarik/vundle'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tommcdo/vim-exchange'
