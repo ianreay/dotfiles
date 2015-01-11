@@ -63,6 +63,7 @@ inoremap <C-s> <esc>:w<CR>
 noremap YY "+y<CR>
 noremap P "+gP<CR>
 noremap XX "+x<CR>
+" Ctrl-R * will paste the clipboard contents
 
 
 " Open .vimrc for quick-edit.
@@ -73,7 +74,7 @@ noremap <leader>b :edit ~/bundles.vim<CR>
 " Quick session access
 noremap <Leader>sl :SessionList<CR>
 noremap <Leader>sa :SessionSaveAs 
- 
+
 " Quick formatting of text
 noremap <Leader>fp gqap
 noremap <Leader>fl gq<space>
@@ -189,7 +190,10 @@ nnoremap <silent> [unite]e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 nnoremap <silent> [unite]d :<C-u>Unite -buffer-name=change-cwd -default-action=cd directory_mru directory_rec/async<CR>
 
 " Ctrl-p file search replacement
-nnoremap <C-p> :Unite -start-insert file_rec/async<cr>
+" nnoremap <C-p> :Unite -start-insert file_rec/async<cr>
+" IANR: unite does not use caches so its file system search is too slow on
+" windows. Need to use ctrlp.vim
+
 " Content searching
 nnoremap <silent> [unite]/ :Unite grep:.<cr>
 " Quick buffer searching
@@ -339,8 +343,6 @@ nnoremap <Leader>tucas :lcd C:\w\internal\trunk\tucas<CR>
 nnoremap <Leader>gem :lcd C:\w\internal\trunk\tucas-gem<CR>
 nnoremap <Leader>fox :lcd C:\w\fox\trunk<CR>
 nnoremap <Leader>82 :lcd C:\w\8.2<CR>
-nnoremap <Leader>pam :lcd C:\inetpub\wwwroot\mockups\pam<CR>
-
 
 """"""""""""""""""""""""""""""""""""""""""""
 " Hitachi locations
