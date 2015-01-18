@@ -55,6 +55,10 @@ nnoremap re :%s/\\begin{edit}\(\_.\{-}\)\\end{edit}/\1/gc
 noremap <C-s> <esc>:w<CR>
 inoremap <C-s> <esc>:w<CR>
 
+" Map ;; to esc so its easier to type on ergonomic keyboards that can have a
+" long travel distance to the escape key
+imap ;; <Esc>
+
 " Ctrl + o shortcut to paste from system buffer
 " since Ctrl + p is used by the ctrlp plugin
 " noremap <C-p> <esc>"+gP
