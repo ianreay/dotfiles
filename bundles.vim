@@ -2,15 +2,15 @@
 :filetype off
 
 " Unix 
-:set rtp+=~/.vim/bundle/vundle/
+" :set rtp+=~/.vim/bundle/vundle/
 " Windows
-:set rtp+=c:/users/ianr/vimfiles/bundle/vundle/
-
-:call vundle#rc()
+set rtp+=~/vimfiles/bundle/Vundle.vim/
+let path='~/vimfiles/bundle'
+call vundle#begin(path)
 
 " let Vundle manage Vundle
  " required! 
-Bundle 'kein/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 Bundle 'gmarik/vundle'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tommcdo/vim-exchange'
@@ -88,7 +88,7 @@ Bundle 'junkblocker/patchreview-vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 " non github repos
-Bundle 'git://git.wincent.com/command-t.git'
+" Bundle 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (ie. when working on your own plugin)
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 " ...
