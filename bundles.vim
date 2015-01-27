@@ -10,6 +10,7 @@ call vundle#begin(path)
 
 " let Vundle manage Vundle
  " required! 
+Plugin 'gmarik/Vundle.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'gmarik/vundle'
 Bundle 'Raimondi/delimitMate'
@@ -52,7 +53,7 @@ Bundle 'sheerun/vim-polyglot'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'godlygeek/tabular'
 " grep.vim replaced with custom grep file
-" Bundle 'honza/vim-snippets'
+Bundle 'honza/vim-snippets'
 
 " Bundle 'vim-scripts/c.vim'
 "   Creates conflicts with ulti snippets
@@ -93,4 +94,5 @@ Bundle 'FuzzyFinder'
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 " ...
 
- filetype plugin indent on     " required!
+call vundle#end()
+filetype plugin indent on     " required!

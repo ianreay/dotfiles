@@ -182,7 +182,7 @@ if has("win32")
 endif
 
 " Always use fuzzy matching
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 nnoremap <silent> [unite]f :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
 " nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
@@ -508,6 +508,8 @@ noremap <Leader>tc <esc>:NeoCompleteTagMakeCache<CR>
 " " Open my ultisnips for the file type in question
 noremap <Leader>us <esc>:UltiSnipsEdit<CR>
 
+let g:UltiSnipsSnippetDirectories=[$HOME.'/vimfiles/ultisnips', $HOME.'/vimfiles/bundle/vim-snippets/UltiSnips']
+
 " " let g:UltiSnipsExpandTrigger = '<c-j>'
 " let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger= '<c-j>'
@@ -541,7 +543,8 @@ let g:syntastic_ignore_files = ['\.py$']
 
 " Checkers 
 let g:syntastic_cpp_checkers = ['cppcheck']
-let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'rubylint']
+" let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'rubylint']
+" let g:syntastic_ruby_checkers = ['mri', 'rubylint']
 let g:syntastic_xml_checkers = ['xmllint']
 " let g:syntastic_python_checkers = ['pylint', 'pep8', 'python']
 " let g:syntastic_python_checkers = ['pylint']
