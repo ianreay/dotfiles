@@ -1,3 +1,7 @@
+if has('win32')
+  let $PATH = 'C:/cygwin/bin/;' . $PATH 
+endif
+
 so ~/bundles.vim
 if has("win32") || has("win16")
   :so ~/grep.vim
@@ -333,12 +337,6 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-if has("win32") || has("win16")
-  let g:vimwiki_list = [{'path': '~\\Dropbox\\vimwiki\\'}]
-else
-  let g:vimwiki_list = [{'path': '/Users/ianreay/Dropbox/vimwiki'}]
-endif
-
 " Quickly make html docs
 noremap <Leader>mh :!make html<CR>
 
@@ -347,6 +345,7 @@ nnoremap <Leader>tucas :lcd C:\w\internal\trunk\tucas<CR>
 nnoremap <Leader>gem :lcd C:\w\internal\trunk\tucas-gem<CR>
 nnoremap <Leader>fox :lcd C:\w\fox\trunk<CR>
 nnoremap <Leader>82 :lcd C:\w\8.2<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""
 " Hitachi locations
@@ -362,6 +361,17 @@ nnoremap gT :OpenURL https://bambam.hitachi-id.com/cgi-bin/tp.pl?ticket=<cfile><
 
 " Access quick files
 noremap <leader>schema :edit common\dbaccess\schema.xml<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" Vimwiki 
+""""""""""""""""""""""""""""""""""""""""""""
+
+if has("win32") || has("win16")
+  let g:vimwiki_list = [{'path': '~\\Dropbox\\vimwiki\\'}]
+else
+  let g:vimwiki_list = [{'path': '/Users/ianreay/Dropbox/vimwiki'}]
+endif
+:nmap <Leader>wn <Plug>VimwikiNextLink
 
 """"""""""""""""""""""""""""""""""""""""""""
 " Hardcore 
@@ -425,10 +435,10 @@ endif
 "" Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_at_startup = 0
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#tags#cache_limit_size = 5000000
+let g:neocomplete#sources#tags#cache_limit_size = 5000
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
@@ -528,9 +538,9 @@ nnoremap <silent> <F12> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnips
 """"""""""""""""""""""""""""""""""""""""""""
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 
 " Python 
 " let g:pymode_lint_write = 0
