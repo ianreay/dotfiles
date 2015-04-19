@@ -1,13 +1,26 @@
+"
+" Setup cygwin binaries for easy usage in vim such as grep and find
+"
 if has('win32')
   let $PATH = 'C:/cygwin/bin/;' . $PATH 
 endif
 
+"
+" Load windows friendly keybindings
+"
+if has('win32')
+   :so $VIMRUNTIME/mswin.vim
+endif
+
+"
+" Load plugins through vundle plugin
+" https://github.com/gmarik/Vundle.vim
+"
 so ~/bundles.vim
+
 if has("win32") || has("win16")
   :so ~/grep.vim
 endif
-" " IANR: go hardcore with your vim and use it the right way
-" " :so ~/neocomplete.vim
 
 filetype indent on
 
@@ -343,7 +356,7 @@ noremap <Leader>mh :!make html<CR>
 " Common file locations
 nnoremap <Leader>tucas :lcd C:\w\internal\trunk\tucas<CR>
 nnoremap <Leader>gem :lcd C:\w\internal\trunk\tucas-gem<CR>
-nnoremap <Leader>fox :lcd C:\w\fox\trunk<CR>
+nnoremap <Leader>fox :lcd C:\w\git\fox\<CR>
 nnoremap <Leader>82 :lcd C:\w\8.2<CR>
 
 
